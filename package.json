@@ -1,0 +1,46 @@
+{
+  "name": "eslint-config-colorfulcompany",
+  "version": "1.0.0",
+  "license": "MIT",
+  "description": "Colorful Company's ESLint config",
+  "author": "Colorful Company, Inc",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/colorfulcompany/eslint-config-colorfulcompany"
+  },
+  "main": "index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "index.js",
+    "base.js",
+    "browser.js",
+    "node.js"
+  ],
+  "engines": {
+    "node": ">= 14"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "eslint": "^8.0.1",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-jsdoc": "^36.1.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "husky": "^7.0.2",
+    "lint-staged": "^11.2.3"
+  },
+  "peerDependencies": {
+    "eslint": "^6.8.0 || ^7.32.0 || ^8.0.1",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-jsdoc": "^36.1.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.1.0"
+  }
+}
