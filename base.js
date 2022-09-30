@@ -1,7 +1,6 @@
 module.exports = {
   extends: [
-    'standard-with-typescript',
-    'plugin:jsdoc/recommended'
+    'standard'
   ],
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
@@ -10,25 +9,16 @@ module.exports = {
     'jsdoc/require-returns-description': 'off',
     'import/no-default-export': 'error'
   },
-  parserOptions: {
-    parser: '@typescript-eslint/parser'
-  },
   overrides: [
     {
-      files: ['*.vue', '**/@types/**'],
+      files: ['*.vue'],
       rules: {
         'import/no-default-export': 'off'
       }
     },
     {
-      files: ['*.ts'],
-      parserOptions: {
-        project: './tsconfig.json'
-      }
-    },
-    {
       files: ['*.*'],
-      excludedFiles: ['**/*.spec.js', '**/*.spec.ts'],
+      excludedFiles: ['**/*.spec.*'],
       extends: [
         'plugin:jsdoc/recommended'
       ],
