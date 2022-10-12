@@ -1,10 +1,8 @@
-[English](https://github.com/colorfulcompany/eslint-config-colorfulcompany/blob/main/README.md) / [日本語](https://github.com/colorfulcompany/eslint-config-colorfulcompany/blob/main/README.ja.md)
-
 # Colorful Company's ESLint config
 
 Colorful Company's ESLint [shareable config](https://eslint.org/docs/developer-guide/shareable-configs).
 
-## Install
+## インストール
 
 ```
 yarn add -D \
@@ -12,6 +10,7 @@ yarn add -D \
   eslint \
   https://github.com/colorfulcompany/eslint-config-colorfulcompany \
   @typescript-eslint/eslint-plugin \
+  eslint-config-standard \
   eslint-config-standard-with-typescript \
   eslint-plugin-import \
   eslint-plugin-jsdoc \
@@ -19,28 +18,33 @@ yarn add -D \
   eslint-plugin-promise
 ```
 
-## Config variants
+## 利用方法
 
-#### `colorfulcompany/node`
-For Node.js environment.
-
-#### `colorfulcompany/browser`
-For browser environment. But enable the Node.js environment in consideration of using the bundler.
-
-## Usage
-
-Add this to your `.eslintrc.js` file:
+`.eslintrc.js` に以下の内容を追加。
 ```js
 module.exports = {
   extends: 'colorfulcompany/browser' // or 'colorfulcompany/node'
 }
 ```
 
-## Rules
-- Extends [`standard-with-typescript`](https://github.com/standard/eslint-config-standard-with-typescript)
+もし Typescript を利用したい場合は、`colorfulcompany/typescript` を extends する。
+
+```js
+module.exports = {
+  extends: [
+    'colorfulcompany/browser', // or 'colorfulcompany/node'
+    'colorfulcompany/typescript'
+  ]
+}
+```
+
+## 設定
+### Standard に従う
+- Extends [`standard-with`](https://github.com/standard/eslint-config-standard)
+- Extends [`standard-with-typescript`](https://github.com/standard/eslint-config-standard-script)
+
+### JSDoc の利用を制御する
 - Extends [`plugin:jsdoc/recommended`](https://github.com/gajus/eslint-plugin-jsdoc)
-- No console on production.
-- No debugger on production.
 - Require JSDoc for arrow function expression.
 ```js
 /**
@@ -76,29 +80,31 @@ class Hoge {
 ```
 - JSDoc param description is optional.
 - JSDoc returns description is optional.
-- Don't use default export.
+
+### デバッグ機能がリリースされるのを防ぐ
+- No console on production.
+- No debugger on production.
+
+### Default export を禁止する
 ```js
 export default class Hoge {...} // ✗ avoid
 export class Hoge {...} // ✓ ok
 ```
 
-## ECMAScript version
-### `colorfulcompany/node`: ECMAScript version is not specified.
-It is probably set to the latest version of ECMAScript by `eslint-config-standard`, but for this project it is not specified.
+### ブラウザでは ES2017 に制限する
+2021年10月の時点では, [ES2018 はほとんどのブラウザに対応しているとは言えない](https://caniuse.com/?feats=mdn-javascript_builtins_regexp_dotall,mdn-javascript_builtins_regexp_lookbehind_assertion,mdn-javascript_builtins_regexp_named_capture_groups,mdn-javascript_builtins_regexp_property_escapes,mdn-javascript_builtins_symbol_asynciterator,mdn-javascript_functions_method_definitions_async_generator_methods,mdn-javascript_grammar_template_literals_template_literal_revision,mdn-javascript_operators_destructuring_rest_in_objects,mdn-javascript_operators_spread_spread_in_destructuring,promise-finally) ので現時点では ES2017 に制限する。
 
-### `colorfulcompany/browser`: Env and parser is set to ES2017.
-As of October 2021, [ES2018 is not yet supported by most browsers](https://caniuse.com/?feats=mdn-javascript_builtins_regexp_dotall,mdn-javascript_builtins_regexp_lookbehind_assertion,mdn-javascript_builtins_regexp_named_capture_groups,mdn-javascript_builtins_regexp_property_escapes,mdn-javascript_builtins_symbol_asynciterator,mdn-javascript_functions_method_definitions_async_generator_methods,mdn-javascript_grammar_template_literals_template_literal_revision,mdn-javascript_operators_destructuring_rest_in_objects,mdn-javascript_operators_spread_spread_in_destructuring,promise-finally), so limit it to **ES2017** for now.
+#### トランスパイラを利用している場合は？
+トランスパイラは全ての機能を完全にトランスパイルする訳ではなく、以下のような機能はそのままユーザーに配信されてしまう。
 
-#### Is the ECMAScript version restriction not necessary when using a transpiler?
-The transpilers are not perfect. Some functions may be delivered to the user without being transpiled. Specifically, these are as follows.
 - RegExp named capture groups (ES2018)
 - RegExp Lookbehind Assertions (ES2018)
 - Flat array methods (ES2019)
 
-So we made a policy of restricting to ES2017, **with or without a transpiler.**
+以上のことから、トランスパイラの利用の有無に関わらず ES2017 の記法に制限する方針を採用。
 
-## Why not use namespaces `@colorfulcompany` ?
-If with a namespace like `@colorfulcompany/eslint-config`, when define multiple variants, way to extend is like this:
+## `@colorfulcompany` の名前空間を採用しない理由
+`@colorfulcompany/eslint-config` のように名前空間を用いたプロジェクト名にしなかったのは、そうした場合には以下のように、冗長な名前で extends に指定する必要があるため。
 
 ```js
 module.exports = {
@@ -106,15 +112,7 @@ module.exports = {
 }
 ```
 
-This way is a bit redundant.
-
-## Direct dependencies
-
-- [eslint-config-standard-with-typescript - npm](https://www.npmjs.com/package/eslint-config-standard-with-typescript)
-- [eslint\-plugin\-jsdoc \- npm](https://www.npmjs.com/package/eslint-plugin-jsdoc)
-- [eslint\-plugin\-import \- npm](https://www.npmjs.com/package/eslint-plugin-import)
-
-## References
+## 参考
 
 - [javascript/packages/eslint\-config\-airbnb at master · airbnb/javascript](https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb)
 - [10up\-toolkit/packages/eslint\-config at develop · 10up/10up\-toolkit](https://github.com/10up/10up-toolkit/tree/develop/packages/eslint-config)
