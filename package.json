@@ -1,6 +1,6 @@
 {
   "name": "eslint-config-colorfulcompany",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "license": "MIT",
   "description": "Colorful Company's ESLint config",
   "author": "Colorful Company, Inc",
@@ -19,28 +19,20 @@
     "node.js"
   ],
   "engines": {
-    "node": ">= 14"
+    "node": ">= 16"
   },
   "scripts": {
     "lint": "eslint .",
     "prepare": "husky install"
   },
   "devDependencies": {
-    "eslint": "^8.0.1",
-    "eslint-config-standard": "^16.0.3",
-    "eslint-plugin-import": "^2.25.2",
-    "eslint-plugin-jsdoc": "^36.1.1",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^5.1.0",
-    "husky": "^7.0.2",
-    "lint-staged": "^11.2.3"
-  },
-  "peerDependencies": {
-    "eslint": "^6.8.0 || ^7.32.0 || ^8.0.1",
-    "eslint-config-standard": "^16.0.3",
-    "eslint-plugin-import": "^2.25.2",
-    "eslint-plugin-jsdoc": "^36.1.1",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^5.1.0"
+    "eslint": "^8.45.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jsdoc": "^46.4.4",
+    "eslint-plugin-n": "^16.0.1",
+    "eslint-plugin-promise": "^6.1.1",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.3"
   }
 }
